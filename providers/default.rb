@@ -58,6 +58,9 @@ action :install do
     pkg_resource = unix_bin_package bin_name do
       action :nothing
       with_devel devel
+      if new_resource.package
+        package new_resource.package
+      end
     end
     pkg_resource.run_action(:install)
     new_resource.updated_by_last_action(true) if pkg_resource.updated_by_last_action?
