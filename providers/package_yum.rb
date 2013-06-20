@@ -78,7 +78,7 @@ action :install do
     end
   end  # /if not package_name
 
-  if package_name == nil
+  if not package_name
     raise RuntimeError, "Could not determine a package name for unix binary (#{bin_name})."
   end
 

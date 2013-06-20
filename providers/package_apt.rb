@@ -27,6 +27,7 @@
 
 require 'chef/mixin/shell_out'
 
+apt_core_refreshed = false
 apt_file_refreshed = false
 
 # Searches for, and attempts to install, a named binary application via
@@ -41,10 +42,17 @@ action :install do
   search_paths = node.unix_bin.search_paths.to_a
   package_name = new_resource.package  # usually nil
   cmd_aptfile  = '/usr/bin/apt-file'
-  cmd_dpkg     = '/usr/bin/dpkg'
+  cmd_aptget   = '/usr/bin/apt-get'
+
+  # Refresh apt-get cache (if needed).
+  unless apt_core_refreshed
+    Chef::Log.info "Refreshing apt-get cache..."
+    shell_out!("#{cmd_aptget} update")
+    apt_core_refreshed = true
+  end
 
   # Install the apt-file tool if needed.
-  unless ::File.exists?(cmd_aptfile)
+  unless ::File.exists?(cmd_aptfile) or package_name
     pkg_resource = package "apt-file" do
       action :nothing
     end
@@ -54,7 +62,7 @@ action :install do
 
   # The package_name can be provided as an override, but usually
   # we need to search for through the "apt-file" tool.
-  if not package_name
+  unless package_name
     search_list = search_paths.map do |path|
       "#{path}/#{bin_name}"
     end
@@ -91,7 +99,7 @@ action :install do
     end
   end  # /if not package_name
 
-  if package_name == nil
+  if not package_name
     raise RuntimeError, "Could not determine a package name for unix binary (#{bin_name})."
   end
 
