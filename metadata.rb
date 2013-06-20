@@ -7,10 +7,9 @@ description       "Provides LWRPs for installing/requiring unix command-line exe
                   "with package name auto-detection."
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 
-version           "0.2.3"
+version           "0.2.4"
 
-recipe            "unix_bin", "Automatically install executables specified via node attribute."
+recipe            "unix_bin", "Automatically install executable bins specified via node attribute."
 
-%w{centos ubuntu}.each do |os|
-  supports os
-end
+supports "centos", ">= 5.0"
+supports "ubuntu", ">= 10.04"
