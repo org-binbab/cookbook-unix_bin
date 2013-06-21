@@ -7,7 +7,7 @@ description       "Provides LWRPs for installing/requiring unix command-line exe
                   "with package name auto-detection."
 long_description  IO.read(File.join(File.dirname(__FILE__), 'README.md'))
 
-version           "0.2.4"
+version           "0.2.6"
 
 recipe            "unix_bin", "Automatically install executable bins specified via node attribute."
 
