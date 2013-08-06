@@ -26,6 +26,7 @@
 #
 
 require 'chef/mixin/shell_out'
+require 'shellwords'
 
 # Searches for, and attempts to install, a named binary application via
 #   the yum package repository. This is accomplished through the use of
@@ -49,7 +50,7 @@ action :install do
       "#{path}/#{bin_name}"
     end
     search_args = search_list.map do |path|
-      Shellwords.escape(path)
+      ::Shellwords.escape(path)
     end
 
     Chef::Log.info "Searching YUM for a package which provides binary (#{bin_name})."
@@ -101,7 +102,7 @@ action :install do
       devel_pkg_resource = package devel_package_name do
         action :nothing
       end
-      test = shell_out("#{cmd_rpm} -q #{Shellwords.escape(devel_package_name)}")
+      test = shell_out("#{cmd_rpm} -q #{::Shellwords.escape(devel_package_name)}")
       unless test.exitstatus == 0  # speed enhancement
         devel_pkg_resource.run_action(:install)
         new_resource.updated_by_last_action(true) if devel_pkg_resource.updated_by_last_action?

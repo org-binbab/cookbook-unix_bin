@@ -26,6 +26,7 @@
 #
 
 require 'chef/mixin/shell_out'
+require 'shellwords'
 
 apt_core_refreshed = false
 apt_file_refreshed = false
@@ -67,13 +68,13 @@ action :install do
       "#{path}/#{bin_name}"
     end
     search_args = search_list.map do |path|
-      Shellwords.escape(path)
+      ::Shellwords.escape(path)
     end
 
     # Refresh apt-file cache (if needed).
     unless apt_file_refreshed
       Chef::Log.info "Refreshing apt-file cache..."
-      shell_out!("#{cmd_aptfile} update")
+      shell_out!("#{cmd_aptfile} update --non-interactive")
       apt_file_refreshed = true
     end
 

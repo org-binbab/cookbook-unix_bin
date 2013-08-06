@@ -26,6 +26,7 @@
 #
 
 require 'chef/shell_out'
+require 'shellwords'
 
 module UnixBin
 
@@ -41,7 +42,7 @@ module UnixBin
         raise ArgumentError, "Invalid binary name. (#{bin_name.to_s})"
       end
 
-      command = "/usr/bin/which #{Shellwords.escape(bin_name)}"
+      command = "/usr/bin/which #{::Shellwords.escape(bin_name)}"
       return command if return_cmd_only
 
       test = shell_out(command)
