@@ -13,3 +13,7 @@ Gemfile.lock
 test/test_error.txt
 .kitchen/
 .kitchen.local.yml
+
+# Intellij
+.idea
+*.iml

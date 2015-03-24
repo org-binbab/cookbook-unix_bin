@@ -31,7 +31,7 @@ require 'chef/mixin/command'
 # Installs system packages which provide given binary.
 # \/
 action :install do
-  extend ::UnixBin::Utility
+  extend ::UnixBinUtils::Utility
 
   bin_name = new_resource.binary
   devel = new_resource.with_devel
@@ -92,7 +92,7 @@ end  # /action
 # Abort Chef run if binary is not installed.
 # \/
 action :require do
-  extend ::UnixBin::Utility
+  extend ::UnixBinUtils::Utility
 
   if new_resource.with_devel
     raise ArgumentError, "Cannot require unix binary with devel flag, must use install action."
