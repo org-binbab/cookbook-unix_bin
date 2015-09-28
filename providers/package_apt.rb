@@ -28,6 +28,8 @@
 require 'chef/mixin/shell_out'
 require 'shellwords'
 
+provides :unix_bin_package, os: "linux", platform_family: [ "debian" ]
+
 apt_core_refreshed = false
 apt_file_refreshed = false
 
