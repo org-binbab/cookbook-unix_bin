@@ -28,6 +28,9 @@
 require 'chef/mixin/shell_out'
 require 'shellwords'
 
+
+provides :unix_bin_package, os: "linux", platform_family: [ "rhel", "fedora" ]
+
 # Searches for, and attempts to install, a named binary application via
 #   the yum package repository. This is accomplished through the use of
 #   the command "yum provides".

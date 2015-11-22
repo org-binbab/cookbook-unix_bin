@@ -28,7 +28,7 @@
 require 'chef/shell_out'
 require 'shellwords'
 
-module UnixBin
+module UnixBinUtils
 
   module Utility
 
@@ -69,7 +69,7 @@ module UnixBin
   module Chef
     module Resource
       def unix_bin_available(bin_name)
-        extend ::UnixBin::Utility
+        extend ::UnixBinUtils::Utility
         unix_bin_available(bin_name, true)
       end
     end
@@ -77,4 +77,4 @@ module UnixBin
 
 end  # /UnixBin
 
-Chef::Resource.send(:include, ::UnixBin::Chef::Resource)
+Chef::Resource.send(:include, ::UnixBinUtils::Chef::Resource)

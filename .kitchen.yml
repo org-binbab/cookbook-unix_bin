@@ -20,6 +20,10 @@ platforms:
   driver_config:
     box: opscode-ubuntu-10.04
     box_url: https://opscode-vm-bento.s3.amazonaws.com/vagrant/opscode_ubuntu-10.04_provisionerless.box
+- name: ubuntu-15.04
+  driver_config:
+    box: ubuntu-15.04
+    box_url: http://opscode-vm-bento.s3.amazonaws.com/vagrant/virtualbox/opscode_ubuntu-15.04_chef-provisionerless.box
 
 suites:
 - name: default
